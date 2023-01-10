@@ -1,3 +1,4 @@
+import Card from '@/components/card';
 import { TreeType } from '@/types/tree';
 import { API_URL } from '@/utils/constants';
 import { GetStaticProps, NextPage } from 'next';
@@ -11,7 +12,8 @@ export interface HomePageProps {
 export const getStaticProps: GetStaticProps = async () => {
   try {
     const res = await fetch(API_URL);
-    const trees = (await res.json()) as TreeType;
+    const result = await res.json();
+    const trees = result.trees as TreeType;
 
     return {
       props: {
@@ -39,10 +41,24 @@ const HomePage: NextPage<HomePageProps> = ({ trees = [] }) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <main className="flex flex-col items-center justify-center flex-grow min-h-screen px-0 py-16">
-      <h1>Trees showcase</h1>
-      {/* GRID */}
-      {/* CARDS */}
+    <main className="min-h-screen px-0 py-16">
+      <h1 className="text-2xl font-semibold text-green-800 text-center mb-6">
+        Trees showcase
+      </h1>
+
+      <section aria-label="List of trees">
+        <ul className="flex flex-row flex-wrap items-center justify-center flex-grow gap-4">
+          {trees.length > 0 &&
+            trees.map((tree) => (
+              <Card
+                key={tree.name}
+                name={tree.name}
+                species={tree.species_name}
+                image={tree.image}
+              />
+            ))}
+        </ul>
+      </section>
     </main>
 
     <footer className="border-solid border-t flex items-center justify-center flex-grow px-0 py-8">
