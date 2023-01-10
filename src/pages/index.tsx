@@ -13,7 +13,7 @@ export const getStaticProps: GetStaticProps = async () => {
   try {
     const res = await fetch(API_URL);
     const result = await res.json();
-    const trees = result.trees as TreeType;
+    const trees = result.trees as Array<TreeType>;
 
     return {
       props: {
@@ -61,7 +61,10 @@ const HomePage: NextPage<HomePageProps> = ({ trees = [] }) => (
       </section>
     </main>
 
-    <footer className="border-solid border-t flex items-center justify-center flex-grow px-0 py-8">
+    <footer
+      data-testid="footer"
+      className="border-solid border-t flex items-center justify-center flex-grow px-0 py-8"
+    >
       Made with
       <span className="m-2">
         <Image

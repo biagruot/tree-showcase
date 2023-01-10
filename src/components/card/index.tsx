@@ -16,6 +16,7 @@ export const Card: FC<Props> = ({ name, species, image }) => {
 
   return (
     <li
+      data-testid="tree-card"
       className="rounded-xl border border-gray-100 p-8 shadow-xl w-80 text-gray-500 cursor-pointer"
       tabIndex={0}
     >
@@ -23,7 +24,9 @@ export const Card: FC<Props> = ({ name, species, image }) => {
       <p className="mt-2 text-sm">{species}</p>
 
       <div
-        className={`${showImage ? `block` : `hidden`} w-60 h-60 relative mb-6`}
+        data-testid="tree-image"
+        hidden={!showImage}
+        className="w-60 h-60 relative mb-6"
       >
         <Image
           fill
@@ -36,6 +39,7 @@ export const Card: FC<Props> = ({ name, species, image }) => {
       </div>
 
       <button
+        data-testid="show-image-button"
         onClick={handleClick}
         className="mt-6 group relative w-24 overflow-hidden rounded-lg bg-white text-sm shadow border border-green-800"
       >
