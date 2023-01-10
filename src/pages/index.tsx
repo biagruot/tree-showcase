@@ -1,73 +1,63 @@
+import { TreeType } from '@/types/tree';
+import { API_URL } from '@/utils/constants';
+import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 
-import styles from '@/styles/Home.module.css';
-
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>TypeScript starter for Next.js</title>
-        <meta
-          name="description"
-          content="TypeScript starter for Next.js that includes all you need to build amazing apps"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{` `}
-          <code className={styles.code}>src/pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=typescript-nextjs-starter"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=typescript-nextjs-starter"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{` `}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
-  );
+export interface HomePageProps {
+  trees: Array<TreeType>;
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const res = await fetch(API_URL);
+    const trees = (await res.json()) as TreeType;
+
+    return {
+      props: {
+        trees,
+      },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once a day
+      // These data shouldn't change often so once a day should be a good deal
+      revalidate: 86400,
+    };
+  } catch (error) {
+    return { notFound: true };
+  }
+};
+
+const HomePage: NextPage<HomePageProps> = ({ trees = [] }) => (
+  <div className="py-0 px-8">
+    <Head>
+      <title>Trees showcase</title>
+      <meta
+        name="description"
+        content="A web app that showcases some trees species with images"
+      />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+
+    <main className="flex flex-col items-center justify-center flex-grow min-h-screen px-0 py-16">
+      <h1>Trees showcase</h1>
+      {/* GRID */}
+      {/* CARDS */}
+    </main>
+
+    <footer className="border-solid border-t flex items-center justify-center flex-grow px-0 py-8">
+      Made with
+      <span className="m-2">
+        <Image
+          src="/heart.svg"
+          alt="Red heart logo image"
+          width={28}
+          height={28}
+        />
+      </span>
+      by Biagio Ruotolo
+    </footer>
+  </div>
+);
+
+export default HomePage;
