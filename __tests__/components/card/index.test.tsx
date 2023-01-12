@@ -30,6 +30,12 @@ describe(`Tree showcase homepage`, () => {
     expect(species).toBeInTheDocument();
   });
 
+  it(`should render the show/hide image button`, () => {
+    const button = screen.getByTestId(`show-image-button`);
+
+    expect(button).toBeInTheDocument();
+  });
+
   it(`should hide the image by default`, () => {
     const image = screen.getByTestId(`tree-image`);
 

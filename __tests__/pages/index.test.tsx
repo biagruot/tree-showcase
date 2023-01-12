@@ -52,10 +52,4 @@ describe(`Tree showcase homepage`, () => {
 
     expect(footer).toBeInTheDocument();
   });
-
-  it(`should 1`, () => {
-    const footer = screen.getByTestId(`footer`);
-
-    expect(footer).toBeInTheDocument();
-  });
 });
