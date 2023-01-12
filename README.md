@@ -53,6 +53,10 @@ Run tests
 ```
 
 
+## Lighthouse report
+
+![Lighthouse report result](/lighthouse_report.png "Lighthouse report result")
+
 
 ## Author
 
@@ -60,6 +64,7 @@ Run tests
 
 * Github: [@biagruot](https://github.com/biagruot)
 * LinkedIn: [@biagioruotolo](https://linkedin.com/in/biagioruotolo)
+
 
 ## License
 
