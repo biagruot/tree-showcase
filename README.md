@@ -1,5 +1,6 @@
 # Trees showcase
 
+My first try with NextJS and Tailwind. Just for learning purposes.
 A web app that showcases trees with details about name, species and image.
 
 
